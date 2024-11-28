@@ -1,19 +1,24 @@
 {
     "name": "backend",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "dist/app.js",
     "scripts": {
-        "start": "ts-node src/index.ts"
+        "dev": "ts-node src/index.ts",
+        "build": "if [ \"$(uname)\" = \"Linux\" ]; then rm -rf dist; else rmdir /s /q dist; fi && tsc",
+        "start": "node dist/index.js"
     },
-
     "dependencies": {
         "cors": "^2.8.5",
-        "express": "^4.21.1"
+        "express": "^4.21.1",
+        "reflect-metadata": "^0.1.13",
+        "sqlite3": "^5.1.7",
+        "typeorm": "^0.3.13"
     },
     "devDependencies": {
         "@types/cors": "^2.8.17",
         "@types/express": "^4.17.21",
+        "@types/node": "^22.10.0",
         "ts-node": "^10.9.1",
-        "typescript": "^5.2.2"
+        "typescript": "^5.7.2"
     }
 }

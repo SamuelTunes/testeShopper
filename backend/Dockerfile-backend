@@ -2,12 +2,20 @@ FROM node:18
 
 WORKDIR /app
 
-COPY ./backend/package.json ./ 
+# Copiar arquivos necessários para instalar dependências
+COPY ./backend/package.json ./backend/package-lock.json ./
+
+# Instalar dependências
 RUN npm install
 
+# Copiar todo o código do backend
 COPY ./backend ./
 
-# Compile o TypeScript (caso use)
-RUN npx tsc
+# Compilar o TypeScript para JavaScript
+RUN npm run build
 
+# Expor a porta do backend
+EXPOSE 8080
+
+# Comando para iniciar o backend
 CMD ["npm", "start"]
