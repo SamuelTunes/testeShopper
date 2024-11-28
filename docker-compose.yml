@@ -1,0 +1,27 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+      
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    environment:
+      - REACT_APP_API_URL=http://backend:8080
+
+networks:
+  app-network:
+    driver: bridge

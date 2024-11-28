@@ -4,11 +4,12 @@ import axios from 'axios';
 const App: React.FC = () => {
   const [message, setMessage] = useState<string>('');
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/api')
-      .then(response => setMessage(response.data.message))
-      .catch(error => console.error(error));
-  }, []);
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080'; // Default local para desenvolvimento
+
+  axios.get(`${API_URL}/api`)
+    .then(response => setMessage(response.data.message))
+    .catch(error => console.error(error));
+  
 
   return (
     <div>
